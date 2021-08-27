@@ -11,12 +11,16 @@ function App() {
 
   useEffect(() => {
     api.get('projects').then(response => {
-      setProjects(response.data)
+      setProjects(response.data);
     })
   }, []);
 
   function handleAddProject() {
-    setProjects([...projects, `Novo projeto ${Date.now()}`])
+    // setProjects([...projects, `Novo projeto ${Date.now()}`])
+    api.post('projects', {
+      title: `Novo projeto ${Date.now()}`,
+      owner: "Gabriel Tijon da Silva"
+    });
   }
 
   return (
@@ -24,7 +28,7 @@ function App() {
       <Header title="Projects" />
 
       <ul>
-        {projects.map(project => <li key={project.id} > {title}</li>)}
+        {projects.map(project => <li key={project.id} > {project.title}</li>)}
       </ul>
 
       <button type="butoon" onClick={handleAddProject}>Adicionar Projeto</button>
